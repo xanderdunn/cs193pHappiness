@@ -10,8 +10,7 @@
 
 @implementation FaceView
 
-// FIXME: WHY do I need this!?  I didn't need it in CalculatorBrain.m
-@synthesize scale = _scale;
+@synthesize scale = _scale;  // Public @property must be @synthesized
 
 #define DEFAULT_SCALE 0.90
 
@@ -20,7 +19,7 @@
     else return _scale;
 }
 
-- (void)setScale:(CGFloat)scale {
+- (void)setScale:(CGFloat)scale { 
     if (scale != _scale) { // setNeedsDisplay is expense, check for change
         _scale = scale;
         [self setNeedsDisplay]; // If scale changed, update display
@@ -105,7 +104,11 @@
     CGPoint mouthCP2 = mouthEnd;
     mouthCP2.x -= (mouthEnd.x - mouthStart.x)/3;
     
-    float smile = 0;
+    // Get the smile value from some data source
+    float smile = [self.dataSource smileForFaceView:self];
+    // Protect again invalid data
+    if (smile < -1) smile = -1;
+    if (smile > 1) smile = 1;
     
     // Curve offset
     CGFloat smileOffset = MOUTH_SMILE * size * smile;
@@ -121,6 +124,8 @@
 }
 
 // Pinch to scale the face
+// This is what it should do when it recieves the signal that the pinch
+//  gesture has occurred
 - (void)pinch:(UIPinchGestureRecognizer *)gesture {
     if ((gesture.state == UIGestureRecognizerStateChanged) ||
          (gesture.state == UIGestureRecognizerStateEnded)) {
