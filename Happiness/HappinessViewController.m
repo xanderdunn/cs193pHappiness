@@ -7,12 +7,18 @@
 //
 
 #import "HappinessViewController.h"
+#import "FaceView.h"
 
 @interface HappinessViewController ()
-
+@property (nonatomic) IBOutlet FaceView *faceView;
 @end
 
 @implementation HappinessViewController
+
+- (void)setHappiness:(int)happiness {
+    _happiness = happiness;
+    [self.faceView setNeedsDisplay]; // redraw view on happiness set
+}
 
 - (void)viewDidLoad
 {
@@ -24,6 +30,20 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+// When the FaceView UIView is created, now is a good time to create the
+//  gesture recognizer
+- (void)setFaceView:(FaceView *)faceView {
+    _faceView = faceView;
+    [self.faceView addGestureRecognizer:[[UIPinchGestureRecognizer alloc]
+                                         initWithTarget:self.faceView
+                                         action:@selector(pinch:)]];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)
+toInterfaceOrientation {
+    return YES;
 }
 
 @end
