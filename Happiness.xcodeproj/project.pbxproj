@@ -301,6 +301,7 @@
 				843CD4BB166C805F003A194A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
