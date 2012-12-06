@@ -59,9 +59,9 @@
 		843CD48A166C805F003A194A = {
 			isa = PBXGroup;
 			children = (
-				843CD49F166C805F003A194A /* Happiness */,
 				843CD498166C805F003A194A /* Frameworks */,
 				843CD496166C805F003A194A /* Products */,
+				843CD49F166C805F003A194A /* Happiness */,
 			);
 			sourceTree = "<group>";
 		};
