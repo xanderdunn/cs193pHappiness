@@ -21,18 +21,6 @@
     [self.faceView setNeedsDisplay]; // redraw view on happiness set
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 // When the FaceView UIView is created, now is a good time to create the
 //  gesture recognizer
 - (void)setFaceView:(FaceView *)faceView {
