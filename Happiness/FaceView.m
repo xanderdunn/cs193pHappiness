@@ -20,7 +20,7 @@
 }
 
 - (void)setScale:(CGFloat)scale { 
-    if (scale != _scale) { // setNeedsDisplay is expense, check for change
+    if (scale != _scale) { // setNeedsDisplay is expensive, check for change
         _scale = scale;
         [self setNeedsDisplay]; // If scale changed, update display
     }
