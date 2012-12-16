@@ -19,18 +19,32 @@ UISplitViewControllerDelegate>
 @implementation HappinessViewController
 @synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
 
+// Helper function for splitViewBarButonItem setter
+- (void)handleSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem {
+    NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
+    if (_splitViewBarButtonItem) { // Remove old button if it exists
+        [toolbarItems removeObject:_splitViewBarButtonItem];
+    }
+    if (splitViewBarButtonItem) { // Add new button if it exists
+        [toolbarItems insertObject:splitViewBarButtonItem atIndex:0];
+    }
+    self.toolbar.items = toolbarItems;
+    _splitViewBarButtonItem = splitViewBarButtonItem;
+}
+
+// Setter for the splitViewBarButtonItem
 - (void)setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem {
     if (_splitViewBarButtonItem != splitViewBarButtonItem) {
-        NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
-        if (_splitViewBarButtonItem) {
-            [toolbarItems removeObject:_splitViewBarButtonItem];
-        }
-        if (splitViewBarButtonItem) {
-            [toolbarItems insertObject:splitViewBarButtonItem atIndex:0];
-        }
-        self.toolbar.items = toolbarItems;
-        _splitViewBarButtonItem = splitViewBarButtonItem;
+        // Update only if the old is different from the new
+        [self handleSplitViewBarButtonItem:splitViewBarButtonItem];
     }
+}
+
+- (void)viewDidLoad { // Called after this UIViewController has been
+    //  instantiated and its outlets are hooked up
+    [super viewDidLoad];
+    // After loading, insert the new button passed to us
+    [self handleSplitViewBarButtonItem:self.splitViewBarButtonItem];
 }
 
 - (void)setHappiness:(int)happiness {
